@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>REALSPORTS.TOP — Palpites e Apostas Esportivas</title>
+  <meta name="description" content="Palpites, análises e conteúdos de apostas esportivas com foco em futebol. Atualização diária, gestão de banca e transparência." />
+  <meta name="theme-color" content="#0b0f16" />
+
+  <style>
+    :root{
+      --bg:#070A0F;
+      --panel:#0D1320;
+      --panel2:#0A1020;
+      --text:#E9EEF7;
+      --muted:#A9B3C7;
+      --line:rgba(255,255,255,.09);
+
+      --gold:#D9B25F;
+      --green:#18D38B;
+      --red:#FF4D4D;
+
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius: 18px;
+      --radius2: 14px;
+      --max: 1120px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(800px 500px at 10% 10%, rgba(24,211,139,.20), transparent 60%),
+        radial-gradient(700px 500px at 90% 15%, rgba(217,178,95,.18), transparent 60%),
+        radial-gradient(700px 500px at 70% 85%, rgba(99,149,255,.14), transparent 60%),
+        var(--bg);
+      line-height:1.35;
+    }
+
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:30;
+      backdrop-filter: blur(10px);
+      background: rgba(7,10,15,.62);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+    .brand{display:flex; align-items:center; gap:12px; min-width: 220px;}
+    .logoWrap{
+      width:46px; height:46px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow);
+      background:
+        radial-gradient(20px 20px at 30% 30%, rgba(255,255,255,.25), transparent 60%),
+        linear-gradient(135deg, rgba(24,211,139,.35), rgba(217,178,95,.25));
+      display:grid; place-items:center;
+      overflow:hidden;
+      position:relative;
+    }
+    .logoWrap img{
+      width:100%; height:100%; object-fit:cover;
+      display:none; /* liga quando você colocar sua logo */
+    }
+    .logoWrap .fallback{
+      font-weight:900; letter-spacing:.5px;
+      color:#081015;
+      background: linear-gradient(135deg, rgba(24,211,139,.95), rgba(217,178,95,.85));
+      width:100%; height:100%;
+      display:grid; place-items:center;
+    }
+
+    .brand h1{font-size:14px; margin:0; letter-spacing:.5px}
+    .brand p{margin:0; font-size:12px; color:var(--muted)}
+    .menu{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    .chip{
+      padding:9px 12px; border:1px solid var(--line);
+      border-radius:999px; font-size:13px; color:var(--muted);
+      background: rgba(255,255,255,.03);
+    }
+    .chip:hover{border-color:rgba(217,178,95,.5); color:var(--text)}
+    .cta{
+      padding:10px 14px; border-radius:999px;
+      background: linear-gradient(135deg, rgba(24,211,139,.95), rgba(217,178,95,.85));
+      color:#061012; font-weight:900; font-size:13px;
+      box-shadow: 0 14px 38px rgba(24,211,139,.20);
+      border:0;
+      cursor:pointer;
+    }
+    .cta:active{transform: translateY(1px)}
+    .btn2{
+      padding:10px 14px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:800; font-size:13px;
+      cursor:pointer;
+    }
+    .btn2:hover{border-color: rgba(24,211,139,.55)}
+
+    /* Hero */
+    .hero{padding:34px 0 10px}
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.3fr .9fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .heroMain{padding:22px}
+    .kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      font-size:12px; color:var(--muted);
+      padding:6px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(255,255,255,.03);
+    }
+    .dot{width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 0 5px rgba(24,211,139,.12)}
+    .heroTitle{
+      margin:14px 0 8px;
+      font-size: clamp(26px, 3.3vw, 40px);
+      line-height:1.06;
+      letter-spacing:-.6px;
+    }
+    .heroSub{margin:0; color:var(--muted); font-size:14px; max-width: 60ch}
+    .heroBtns{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap}
+    .stats{
+      display:grid; grid-template-columns: repeat(3, 1fr);
+      gap:10px; margin-top:16px;
+    }
+    .stat{
+      padding:12px; border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+    }
+    .stat b{display:block; font-size:16px}
+    .stat span{font-size:12px; color:var(--muted)}
+
+    .heroSide{padding:18px; display:flex; flex-direction:column; gap:12px}
+    .sideTitle{font-weight:900; font-size:14px}
+    .notice{
+      padding:12px;
+      border-radius: var(--radius2);
+      border:1px solid rgba(217,178,95,.30);
+      background: rgba(217,178,95,.08);
+      color: var(--text);
+      font-size:13px;
+    }
+    .mini{
+      display:flex; gap:10px; align-items:flex-start;
+      padding:12px;
+      border-radius: var(--radius2);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+    .badge{
+      min-width:34px; height:34px; border-radius:12px;
+      display:grid; place-items:center;
+      background: rgba(24,211,139,.18);
+      border:1px solid rgba(24,211,139,.25);
+      font-weight:900;
+      color: var(--green);
+    }
+    .mini p{margin:0; color:var(--muted); font-size:13px}
+    .mini b{display:block; margin-bottom:3px; color:var(--text)}
+
+    /* Sections */
+    .section{padding:18px 0}
+    .sectionHead{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+      margin-bottom:12px;
+    }
+    .sectionHead h2{margin:0; font-size:18px}
+    .sectionHead p{margin:0; color:var(--muted); font-size:13px}
+
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:12px; color:var(--muted);
+      padding:6px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(255,255,255,.03);
+    }
+
+    .panel{padding:14px}
+    .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px}
+
+    .match{
+      display:flex; justify-content:space-between; gap:10px; align-items:center;
+      padding:12px 0;
+      border-bottom:1px solid var(--line);
+    }
+    .match:last-child{border-bottom:0}
+    .teams{display:flex; flex-direction:column; gap:2px}
+    .teams b{font-size:14px}
+    .teams span{font-size:12px; color:var(--muted)}
+    .pick{
+      display:flex; flex-direction:column; align-items:flex-end; gap:6px;
+      text-align:right;
+    }
+    .tag{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(24,211,139,.30);
+      background: rgba(24,211,139,.10);
+      color: var(--text);
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .odd{font-size:12px; color:var(--muted)}
+    .risk{
+      font-size:11px; color: var(--muted);
+      border:1px solid var(--line);
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.02);
+    }
+
+    .ctaRow{
+      margin-top:12px;
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      justify-content:space-between;
+      border-top:1px solid var(--line);
+      padding-top:12px;
+    }
+    .whats{
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    }
+    .whats a{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(24,211,139,.35);
+      background: rgba(24,211,139,.10);
+      font-weight:900; font-size:13px;
+    }
+    .whats small{color:var(--muted)}
+
+    .list{display:grid; gap:8px}
+    .list a{
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02)
+    }
+    .list a:hover{border-color: rgba(217,178,95,.55)}
+
+    .cols{display:grid; grid-template-columns: 1.2fr .8fr; gap:14px; align-items:start;}
+    .legal{
+      padding:12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+
+    .footer{
+      padding:22px 0 28px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    /* Mobile */
+    @media (max-width: 900px){
+      .heroGrid{grid-template-columns: 1fr}
+      .grid3{grid-template-columns: 1fr}
+      .cols{grid-template-columns: 1fr}
+      .brand{min-width:auto}
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="nav">
+        <div class="brand">
+          <div class="logoWrap" title="Logo">
+            <!-- Para usar sua logo: suba um arquivo chamado logo.png no GitHub e troque o display no script -->
+            <img id="logoImg" src="logo.png" alt="REALSPORTS.TOP logo">
+            <div class="fallback" id="logoFallback">RS</div>
+          </div>
+          <div>
+            <h1>REALSPORTS.TOP</h1>
+            <p>Palpites • Análises • Futebol</p>
+          </div>
+        </div>
+
+        <nav class="menu">
+          <a class="chip" href="#palpites">Palpites</a>
+          <a class="chip" href="#planos">Planos</a>
+          <a class="chip" href="#resultados">Resultados</a>
+          <a class="chip" href="#contato">Contato</a>
+          <button class="cta" onclick="scrollToId('contato')">Entrar no VIP</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="heroGrid">
+        <div class="card heroMain">
+          <div class="kicker"><span class="dot"></span> Atualização diária • Gestão de banca • Transparência</div>
+          <h2 class="heroTitle">Palpites com análise, organização e disciplina.</h2>
+          <p class="heroSub">
+            Publique jogos do dia, avisos do VIP e resultados em um site leve e profissional — sem “promessas”, com foco em método e consistência.
+          </p>
+
+          <div class="heroBtns">
+            <button class="cta" onclick="scrollToId('palpites')">Ver jogos de hoje</button>
+            <button class="btn2" onclick="scrollToId('planos')">Ver planos</button>
+            <button class="btn2" onclick="scrollToId('resultados')">Ver resultados</button>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><b>Mobile</b><span>Perfeito no celular</span></div>
+            <div class="stat"><b>Rápido</b><span>Carrega leve</span></div>
+            <div class="stat"><b>Pronto</b><span>GitHub Pages</span></div>
+          </div>
+        </div>
+
+        <aside class="card heroSide">
+          <div class="sideTitle">Avisos importantes</div>
+          <div class="notice">
+            ⚠️ Apostas envolvem risco. Conteúdo informativo. Sem garantia de lucro.
+          </div>
+
+          <div class="mini">
+            <div class="badge">VIP</div>
+            <div>
+              <b>Grupo VIP no WhatsApp</b>
+              <p>Entradas organizadas, gestão por unidades e acompanhamento.</p>
+            </div>
+          </div>
+
+          <div class="mini">
+            <div class="badge">📌</div>
+            <div>
+              <b>Postagens do dia</b>
+              <p>Troque apenas time/horário/odd e publique em minutos.</p>
+            </div>
+          </div>
+
+          <div class="mini">
+            <div class="badge">🛡️</div>
+            <div>
+              <b>Transparência</b>
+              <p>Área de resultados simples para ganhar confiança do público.</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="palpites" class="section">
+      <div class="sectionHead">
+        <div>
+          <h2>Jogos de hoje</h2>
+          <p>Exemplo de vitrine — você edita esses jogos quando quiser.</p>
+        </div>
+        <span class="pill" id="todayPill">📅 Hoje</span>
+      </div>
+
+      <div class="card panel">
+        <div class="match">
+          <div class="teams">
+            <b>Time A vs Time B</b>
+            <span>Competição • 16:00</span>
+          </div>
+          <div class="pick">
+            <span class="tag">Dupla chance (1X)</span>
+            <span class="odd">Odd: 1.55 • Entrada: 1 unidade</span>
+          </div>
+        </div>
+
+        <div class="match">
+          <div class="teams">
+            <b>Time C vs Time D</b>
+            <span>Competição • 18:30</span>
+          </div>
+          <div class="pick">
+            <span class="tag">Mais de 1.5 gols</span>
+            <span class="odd">Odd: 1.44 • Entrada: 1 unidade</span>
+          </div>
+        </div>
+
+        <div class="match">
+          <div class="teams">
+            <b>Time E vs Time F</b>
+            <span>Competição • 21:00</span>
+          </div>
+          <div class="pick">
+            <span class="tag">Ambas marcam (SIM)</span>
+            <span class="odd">Odd: 1.72 • Entrada: 1 unidade</span>
+          </div>
+        </div>
+
+        <div class="ctaRow">
+          <div class="whats">
+            <a id="whatsBtn" href="https://wa.me/5564993219208" target="_blank" rel="noopener">📲 Entrar no WhatsApp</a>
+            <small>Troque o número na seção Contato</small>
+          </div>
+          <span class="risk">Sugestão: 1% a 3% da banca por entrada</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="planos" class="section">
+      <div class="sectionHead">
+        <div>
+          <h2>Planos</h2>
+          <p>Modelo simples (altere benefícios e preços do jeito que quiser).</p>
+        </div>
+        <span class="pill">⭐ VIP</span>
+      </div>
+
+      <div class="grid3">
+        <div class="card panel">
+          <span class="pill">Básico</span>
+          <h3 style="margin:10px 0 6px">Conteúdo gratuito</h3>
+          <p style="margin:0 0 10px; color:var(--muted)">Jogos selecionados do dia + avisos no site.</p>
+          <div class="list">
+            <a href="#palpites">✅ 1–3 palpites/dia</a>
+            <a href="#resultados">✅ Resultados públicos</a>
+            <a href="#contato">✅ Contato direto</a>
+          </div>
+        </div>
+
+        <div class="card panel" style="border-color: rgba(24,211,139,.35)">
+          <span class="pill" style="border-color: rgba(24,211,139,.35)">VIP</span>
+          <h3 style="margin:10px 0 6px">Grupo VIP WhatsApp</h3>
+          <p style="margin:0 0 10px; color:var(--muted)">Entradas organizadas + acompanhamento.</p>
+          <div class="list">
+            <a href="#contato">🔥 Entradas e alertas</a>
+            <a href="#contato">📌 Gestão por unidades</a>
+            <a href="#contato">🧾 Resumo semanal</a>
+          </div>
+          <div style="margin-top:12px">
+            <button class="cta" onclick="scrollToId('contato')">Quero o VIP</button>
+          </div>
+        </div>
+
+        <div class="card panel">
+          <span class="pill" style="border-color: rgba(217,178,95,.45)">Premium</span>
+          <h3 style="margin:10px 0 6px">Mentoria</h3>
+          <p style="margin:0 0 10px; color:var(--muted)">Rotina, método e montagem de banca.</p>
+          <div class="list">
+            <a href="#contato">🎯 Plano de banca</a>
+            <a href="#contato">🧠 Disciplina e controle</a>
+            <a href="#contato">📊 Checklist de entradas</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultados" class="section">
+      <div class="sectionHead">
+        <div>
+          <h2>Resultados (exemplo)</h2>
+          <p>Histórico simples para confiança e transparência.</p>
+        </div>
+        <span class="pill">📈 Semanal</span>
+      </div>
+
+      <div class="card panel">
+        <div class="match">
+          <div class="teams">
+            <b>Semana 1</b>
+            <span>W: 8 • L: 5 • Void: 1</span>
+          </div>
+          <div class="pick">
+            <span class="tag" style="border-color: rgba(217,178,95,.35); background: rgba(217,178,95,.10)">+3.2u</span>
+            <span class="odd">Retorno ilustrativo</span>
+          </div>
+        </div>
+
+        <div class="match">
+          <div class="teams">
+            <b>Semana 2</b>
+            <span>W: 7 • L: 6 • Void: 0</span>
+          </div>
+          <div class="pick">
+            <span class="tag" style="border-color: rgba(217,178,95,.35); background: rgba(217,178,95,.10)">+1.1u</span>
+            <span class="odd">Retorno ilustrativo</span>
+          </div>
+        </div>
+
+        <div class="match">
+          <div class="teams">
+            <b>Semana 3</b>
+            <span>W: 6 • L: 7 • Void: 1</span>
+          </div>
+          <div class="pick">
+            <span class="tag" style="border-color: rgba(255,77,77,.40); background: rgba(255,77,77,.10)">-0.8u</span>
+            <span class="odd">Retorno ilustrativo</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" class="section">
+      <div class="sectionHead">
+        <div>
+          <h2>Contato</h2>
+          <p>Deixe seu WhatsApp e Instagram aqui.</p>
+        </div>
+        <span class="pill">📲 Fale comigo</span>
+      </div>
+
+      <div class="card panel">
+        <div class="cols">
+          <div>
+            <h3 style="margin:0 0 8px">Entrar no VIP</h3>
+            <p style="margin:0 0 12px; color:var(--muted)">
+              Troque os links abaixo pelos seus links oficiais.
+            </p>
+
+            <div class="list">
+              <!-- WhatsApp: troque o número (formato: país + DDD + número) -->
+              <a id="whatsLink" href="https://wa.me/5564993219208" target="_blank" rel="noopener">📲 WhatsApp: +55 64 99321-9208</a>
+
+              <!-- Instagram: troque seu @ -->
+              <a id="instaLink" href="#" target="_blank" rel="noopener">📸 Instagram: @realsports.top</a>
+
+              <!-- Grupo VIP: coloque o link -->
+              <a id="vipLink" href="#" target="_blank" rel="noopener">🔗 Link do Grupo VIP (coloque aqui)</a>
+            </div>
+          </div>
+
+          <div class="legal">
+            <h3 style="margin:0 0 8px">Aviso legal</h3>
+            <p style="margin:0; color:var(--muted)">
+              Apostas esportivas envolvem risco e variância. Este site publica conteúdos informativos.
+              Não existe garantia de lucro. Aposte com responsabilidade e dentro do seu limite.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrap" style="padding:0">
+        <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:center">
+          <div>© <span id="year"></span> REALSPORTS.TOP • Todos os direitos reservados</div>
+          <div>Feito para ser leve, rápido e fácil de atualizar</div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    function scrollToId(id){
+      document.getElementById(id)?.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // Data no pill
+    const d = new Date();
+    const months = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+    const today = `${String(d.getDate()).padStart(2,'0')}/${months[d.getMonth()]}/${d.getFullYear()}`;
+    document.getElementById('todayPill').textContent = `📅 ${today}`;
+    document.getElementById('year').textContent = d.getFullYear();
+
+    // Se você subir uma logo "logo.png", ela aparece automaticamente.
+    // Se não existir, fica o fallback RS.
+    const img = document.getElementById('logoImg');
+    const fallback = document.getElementById('logoFallback');
+    img.addEventListener('load', () => {
+      img.style.display = 'block';
+      fallback.style.display = 'none';
+    });
+    img.addEventListener('error', () => {
+      img.style.display = 'none';
+      fallback.style.display = 'grid';
+    });
+  </script>
+</body>
+</html>
